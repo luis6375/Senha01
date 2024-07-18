@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atendimento - Sistema de Filas</title>
+    <style>
+        /* Estilos para a página */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        /* Estilos para o formulário */
+        form {
+            margin: 20px auto;
+            max-width: 400px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #0074D9;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        /* Estilos para a tabela de histórico */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sistema de Filas de Atendimento</h1>
+    <form id="ticketForm">
+        <input type="text" id="name" placeholder="Nome">
+        <input type="text" id="service" placeholder="Serviço">
+        <button type="button" onclick="generateTicket()">Emitir Senha</button>
+    </form>
+    <h2>Histórico de Senhas</h2>
+    <table id="ticketHistory">
+        <thead>
+            <tr>
+                <th>Senha</th>
+                <th>Nome</th>
+                <th>Serviço</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Aqui você pode adicionar as senhas emitidas -->
+        </tbody>
+    </table>
+    <script>
+        function generateTicket() {
+            const name = document.getElementById('name').value;
+            const service = document.getElementById('service').value;
+            const ticketId = generateUniqueId(); // Implemente a lógica para gerar IDs únicos
+            const newRow = `<tr><td>${ticketId}</td><td>${name}</td><td>${service}</td></tr>`;
+            document.querySelector('#ticketHistory tbody').insertAdjacentHTML('beforeend', newRow);
+        }
+
+        function generateUniqueId() {
+    // Inicialize um contador (pode ser armazenado em memória ou banco de dados)
+    let counter = 1;
+
+    // Função para formatar o contador como um ID (por exemplo, A001, A002, etc.)
+    function formatId(counter) {
+        const prefix = 'A'; // Prefixo para o ID (pode ser personalizado)
+        const paddedCounter = counter.toString().padStart(3, '0'); // Garante que o contador tenha 3 dígitos
+        return `${prefix}${paddedCounter}`;
+    }
+
+    // Incrementa o contador toda vez que uma nova senha é gerada
+    counter++;
+
+    // Retorna o ID gerado
+    return formatId(counter);
+}
+
+// Exemplo de uso:
+const newTicketId = generateUniqueId();
+console.log(`Nova senha gerada: ${newTicketId}`);
+    </script>
+</body>
+</html>
